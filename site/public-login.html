@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign in — DIC Performance</title>
+  <link rel="canonical" href="https://DIC-Dashboard.com/">
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#211d1e;background:#f7f6f5}
+    *{box-sizing:border-box}body{margin:0}.page{min-height:100vh;display:grid;place-items:center;padding:24px}
+    .card{width:100%;max-width:390px;background:#fff;border:1px solid #e8e4e5;border-radius:18px;box-shadow:0 12px 36px rgba(35,25,29,.08);padding:32px 28px}
+    .brand{text-align:center;margin-bottom:22px}.brand strong{font-size:21px}.dot,.link{color:#8a1538}.sub{color:#736b6e;font-size:11px;margin-top:5px}
+    .intro{text-align:center;color:#625a5d;font-size:14px;line-height:1.5;margin:0 0 20px}
+    form,.field{display:flex;flex-direction:column}.form{gap:15px}.field{gap:6px}label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#625a5d}
+    input{width:100%;border:1px solid #d9d3d5;border-radius:10px;padding:12px 14px;font:500 15px/22px inherit;outline:none}
+    input:focus{border-color:#8a1538;box-shadow:0 0 0 3px rgba(138,21,56,.1)}
+    button{width:100%;min-height:44px;border-radius:10px;font:700 14px/20px inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;text-decoration:none}
+    .primary{border:0;background:#8a1538;color:#fff}
+    .link{border:0;background:none;min-height:auto;font-size:13px;padding:0}.divider{display:flex;align-items:center;gap:10px;color:#948c8f;font-size:11px}.divider:before,.divider:after{content:"";height:1px;background:#e8e4e5;flex:1}
+    .notice{text-align:center;font-size:13px;line-height:1.45;padding:10px 12px;border-radius:8px;margin:0}.error{color:#8a1538;background:#faeef1}.info{color:#405f58;background:#edf7f4}
+    .hidden{display:none}.new-user{text-align:center;font-size:12px;line-height:1.5;color:#736b6e;margin:0}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card" aria-labelledby="title">
+      <div class="brand"><strong id="title">DIC Performance<span class="dot">.</span></strong><div class="sub">Digital Incubation Center · MCIT · Operated by Ibtechar</div></div>
+      <div id="login-view">
+        <p class="intro">Sign in to access the DIC performance dashboard.</p>
+        <form id="login-form" class="form">
+          <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="••••••••"></div>
+          <p id="login-error" class="notice error hidden" role="alert"></p>
+          <button class="primary" type="submit">Sign in</button>
+          <div class="divider">or</div>
+          <p class="new-user">New to DIC? <button id="show-signup" class="link" type="button">Create an account</button></p>
+          <button id="show-reset" class="link" type="button">Forgot password?</button>
+        </form>
+      </div>
+      <div id="signup-view" class="hidden">
+        <p class="intro">Create an account with your approved organization email.</p>
+        <form id="signup-form" class="form">
+          <div class="field"><label for="signup-email">Email</label><input id="signup-email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+          <div class="field"><label for="signup-password">Password</label><input id="signup-password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters"></div>
+          <div class="field"><label for="signup-confirm-password">Confirm password</label><input id="signup-confirm-password" type="password" autocomplete="new-password" required minlength="8" placeholder="Re-enter your password"></div>
+          <p class="new-user">Access is limited to certain email addresses.</p>
+          <p id="signup-message" class="notice hidden" role="alert"></p>
+          <button id="signup-submit" class="primary" type="submit">Create account</button>
+          <button id="show-login-from-signup" class="link" type="button">Back to sign in</button>
+        </form>
+      </div>
+      <div id="reset-view" class="hidden">
+        <p class="intro">Request a reset code for an existing password account.</p>
+        <form id="reset-form" class="form">
+          <div class="field"><label for="reset-email">Email</label><input id="reset-email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+          <div id="code-fields" class="form hidden">
+            <div class="field"><label for="code">Reset code</label><input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div>
+            <div class="field"><label for="new-password">New password</label><input id="new-password" type="password" autocomplete="new-password" placeholder="At least 8 characters"></div>
+          </div>
+          <p id="reset-message" class="notice hidden" role="status"></p>
+          <button id="reset-submit" class="primary" type="submit">Send reset code</button>
+          <button id="show-login" class="link" type="button">Back to sign in</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id);
+    const showMessage=(id,text,isError)=>{const el=$(id);el.textContent=text;el.className='notice '+(isError?'error':'info')};
+    $('login-form').addEventListener('submit',async e=>{e.preventDefault();$('login-error').className='notice error hidden';
+      try{const r=await fetch('/api/login',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:$('email').value.trim(),password:$('password').value})});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'Sign-in failed.');location.replace('/')}
+      catch(err){showMessage('login-error',err.message||'Could not sign in.',true)}});
+    $('show-signup').onclick=()=>{$('login-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('signup-view').classList.remove('hidden');$('signup-email').value=$('email').value;$('signup-email').focus()};
+    $('show-login-from-signup').onclick=()=>{$('signup-view').classList.add('hidden');$('login-view').classList.remove('hidden');$('email').focus()};
+    $('signup-form').addEventListener('submit',async e=>{e.preventDefault();$('signup-message').className='notice hidden';
+      const email=$('signup-email').value.trim(),password=$('signup-password').value,confirmPassword=$('signup-confirm-password').value;
+      if(password!==confirmPassword){showMessage('signup-message','Passwords do not match.',true);return}
+      $('signup-submit').disabled=true;$('signup-submit').textContent='Creating account…';
+      try{const r=await fetch('/api/signup',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,confirmPassword})});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'Could not create your account.');
+        $('signup-view').classList.add('hidden');$('login-view').classList.remove('hidden');$('email').value=email;$('password').value='';showMessage('login-error','Account created. Sign in with your email and password.',false);$('password').focus();
+      }catch(err){showMessage('signup-message',err.message||'Could not create your account.',true)}
+      finally{$('signup-submit').disabled=false;$('signup-submit').textContent='Create account'}});
+    $('show-reset').onclick=()=>{$('login-view').classList.add('hidden');$('reset-view').classList.remove('hidden');$('reset-email').value=$('email').value;$('reset-email').focus()};
+    $('show-login').onclick=()=>{$('reset-view').classList.add('hidden');$('login-view').classList.remove('hidden');$('email').focus()};
+    let codeRequested=false;
+    $('reset-form').addEventListener('submit',async e=>{e.preventDefault();
+      try{const endpoint=codeRequested?'/api/reset-password':'/api/request-password-reset';const body=codeRequested?{email:$('reset-email').value.trim(),code:$('code').value.trim(),newPassword:$('new-password').value}:{email:$('reset-email').value.trim()};
+        const r=await fetch(endpoint,{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok||!d.ok)throw new Error(d.error||'Request failed.');
+        if(codeRequested){location.replace('/');return}codeRequested=true;$('code-fields').classList.remove('hidden');$('reset-submit').textContent='Reset password & sign in';showMessage('reset-message',d.message||'If the account exists, a code was sent.',false);$('code').focus()}
+      catch(err){showMessage('reset-message',err.message||'Request failed.',true)}});
+  </script>
+</body>
+</html>
