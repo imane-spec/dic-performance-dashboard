@@ -5962,9 +5962,10 @@
          VIEW: COACHING
          ====================================================================== */
       function viewCoaching(M) {
+        var COACH_COHORT_SCOPE = 6;
         var kpis = '<div class="grid-collapse" style="display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:14px">'
           + '<div class="card" style="justify-content:center;gap:8px"><div style="display:inline-flex;align-items:baseline;width:max-content;max-width:100%;font:800 58px/60px var(--font-sans);letter-spacing:-0.02em;white-space:nowrap">' + hnum(M.coachHours) + '<span style="font:600 21px/24px var(--font-sans);color:var(--text-tertiary)"> h</span></div><div class="klabel">Coaching Hours Delivered</div><div style="font:400 12px/17px var(--font-sans);color:var(--text-secondary)">model: ' + (M.coach.model ? M.coach.model.hoursPerStartupPerMonth : '—') + ' h × ' + (M.coach.model ? M.coach.model.startups : '—') + ' Startups per Month</div></div>'
-          + kpiTile(M.coachMonths != null ? hnum(M.coachMonths) : '—', '/ ' + (M.coachMonthsTotal || '—'), 'Coaching Months Delivered')
+          + kpiTile(M.coachMonths != null ? hnum(M.coachMonths) : '—', '/ ' + COACH_COHORT_SCOPE, 'Coaching Months Delivered · ' + esc(S.cohort))
           + kpiTile(M.coachHeld, '', 'Sessions held', 'var(--green-600)')
           + '</div>';
 
@@ -6888,7 +6889,7 @@
             + errorHtml
             + '<button data-login-action="login" style="' + btnStyle + (S.loginBusy ? ';opacity:0.6' : '') + '"' + (S.loginBusy ? ' disabled' : '') + '>' + (S.loginBusy ? 'Signing in…' : 'Sign in') + '</button>'
             + '<div style="display:flex;align-items:center;gap:10px;color:var(--text-tertiary);font:400 11px/14px var(--font-sans)"><div style="flex:1;height:1px;background:var(--border-default)"></div>or<div style="flex:1;height:1px;background:var(--border-default)"></div></div>'
-            + '<p style="text-align:center;font:400 13px/18px var(--font-sans);color:var(--text-secondary);margin:0">New to DIC? <button data-login-action="signup" style="background:none;border:none;cursor:pointer;padding:0;font:700 13px/18px var(--font-sans);color:var(--text-brand)">Create an account</button></p>'
+            + '<p style="text-align:center;font:400 13px/18px var(--font-sans);color:var(--text-secondary);margin:0">New to DIC?</br> <button data-login-action="signup" style="background:none;border:none;cursor:pointer;padding:0;font:700 13px/18px var(--font-sans);color:var(--text-brand)">Create an account</button></p>'
             + '<button data-login-action="forgot" style="' + linkBtnStyle + '">Forgot password?</button>'
             + offlineHtml;
         }
