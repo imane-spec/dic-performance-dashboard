@@ -58,13 +58,21 @@ variable**, add:
 |---|---|
 | `SESSION_SECRET` | a long random string (32+ characters) |
 | `ADMIN_SECRET` | a different long random string |
+| `BLOBS_TOKEN` | a Netlify personal access token (see below) |
 
-Generate each one locally with:
+Generate `SESSION_SECRET` and `ADMIN_SECRET` locally with:
 ```
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 Keep `ADMIN_SECRET` somewhere private — you'll use it once to create your
 first account, and never need to share it with end users.
+
+For `BLOBS_TOKEN`: go to your Netlify **avatar (top right) → User settings
+→ Applications → Personal access tokens → New access token**, give it any
+name, and copy the token it shows you (you won't be able to see it again).
+Paste that as the value of `BLOBS_TOKEN`. This is needed because Netlify's
+automatic setup for account storage doesn't always attach correctly to a
+deploy — passing this token makes storage work reliably regardless.
 
 After adding the variables, trigger a redeploy (**Deploys → Trigger deploy
 → Deploy site**) so the functions pick them up.
