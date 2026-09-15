@@ -5527,7 +5527,7 @@
           + '<span class="chip awaiting">Graduated — Awaiting data</span>'
           + '<span class="chip awaiting">Withdrawn — Awaiting data</span>'
           + '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">The Survival Rate Above (' + (hasSurvival ? Math.round(survival.value * 100) + '%' : '—') + ') Doesn\'t Yet Say Why a Startup is no Longer Operating. Innovate Tracks Startup Lifecycle Status Directly (Graduated vs Withdrawn), which the Current Workbook Doesn\'t Carry — Once it Does, this Splits the Survival Figure into its two Component Outcomes.</span></span></span>'
+          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">The Survival Rate Above (' + (hasSurvival ? Math.round(survival.value * 100) + '%' : '—') + ') Doesn\'t Yet Say Why a Startup is no Longer Operating. The DIC Tech Platform Tracks Startup Lifecycle Status Directly (Graduated vs Withdrawn), which the Current Workbook Doesn\'t Carry — Once it Does, this Splits the Survival Figure into its two Component Outcomes.</span></span></span>'
           + '</div>'
           + '</div>'
           + '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">' + impactTiles + '</div>'
@@ -5703,7 +5703,7 @@
 
         var pointsCard = '<div class="card" style="gap:8px"><div style="display:flex;align-items:baseline;gap:8px"><h2 class="ctitle">ENGAGEMENT POINTS</h2>'
           + '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Attendance Rate Answers "Did They Show Up." Points — Earned Automatically on the Same QR Check-in that Records Attendance — Answer "how Consistently Engaged is this Startup across Everything it\'s Invited to." Innovate Awards Points at Every Event Check-in; the Current Workbook has no Point Values to Draw on Yet.</span></span></span>'
+          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Attendance Rate Answers "Did They Show Up." Points — Earned Automatically on the Same QR Check-in that Records Attendance — Answer "how Consistently Engaged is this Startup across Everything it\'s Invited to." Once Attendance Weights are Configured, the DIC Tech Platform Awards Points Automatically at Each Event Check-in; the Current Workbook has no Point Values to Draw on Yet.</span></span></span>'
           + '</div><span class="chip awaiting" style="align-self:flex-start">Awaiting data</span></div>';
 
         return kpis + peopleCard + pointsCard;
@@ -5880,13 +5880,13 @@
              startup rather than as one dashboard-wide card, since a deliverable
              is coach-assigned artefact-by-artefact per startup, not a cohort
              aggregate. Still Awaiting Data: the current workbook has no
-             deliverable-submission concept at all yet (Innovate's Deliverables
+             deliverable-submission concept at all yet (the DIC Tech Platform's Deliverables
              feature — coach assigns, startup submits, coach scores — is the
              eventual source), so every startup renders the same honest
              placeholder until that data exists. */
           + '<div class="card" style="gap:8px"><div style="display:flex;align-items:baseline;gap:8px"><h2 class="ctitle">DELIVERABLES</h2>'
           + '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:290px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Distinct from the Weekly Coaching Status Above: a Deliverable is a Specific, Coach-Assigned Artefact with its own Due Date and Score, not a Judgment Call. Innovate\'s Deliverables Feature (coach Assigns → Startup Submits → Coach Scores) would Populate ' + esc(p.name) + '\'s Submission History and Scores here; the Current Workbook has no Deliverable-Level Data.</span></span></span>'
+          + '<span class="infobubble" style="width:290px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Distinct from the Weekly Coaching Status Above: a Deliverable is a Specific, Coach-Assigned Artefact with its own Due Date and Score, not a Judgment Call. The DIC Tech Platform\'s Deliverables Feature (coach Assigns → Startup Submits → Coach Scores) would Populate ' + esc(p.name) + '\'s Submission History and Scores here; the Current Workbook has no Deliverable-Level Data.</span></span></span>'
           + '</div><span class="chip awaiting" style="align-self:flex-start">Awaiting data</span></div>'
           + '<div class="card" style="gap:8px"><h2 class="ctitle">COACHING SUMMARY</h2><p style="font:400 13px/19px var(--font-sans);color:var(--text-secondary)">' + esc(coachSentence) + '</p></div>'
           + '</div>';
@@ -6318,24 +6318,24 @@
           + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Since we started processing perk requests, how has the number of days to activate them improved over time?</span></span></span>';
 
         /* ---- total in-kind value delivered by provider — Awaiting data.
-           Innovate's own v1 metrics table flags this its single priority
+           The DIC Tech Platform's own v1 metrics table flags this its single priority
            metric; the current records have no monetary value field at all. */
         var valueInfoTip = '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:300px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">This Tab Currently Answers "how Fast are we Processing Requests." It Cannot Answer "how much is this Programme Actually Worth to its Startups" — which, for a Client Funding the Perks Programme, may be the more Fundamental Question. Innovate\'s Operator Assigns a Value to Every Granted Perk; the Current Records Carry Status and Dates, but no Value Field. This is Innovate\'s own Top-Priority Metric in its v1 Spec.</span></span></span>';
+          + '<span class="infobubble" style="width:300px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">This Tab Currently Answers "how Fast are we Processing Requests." It Cannot Answer "how much is this Programme Actually Worth to its Startups" — which, for a Client Funding the Perks Programme, may be the more Fundamental Question. The DIC Tech Platform\'s Operator Assigns a Value to Every Granted Perk; the Current Records Carry Status and Dates, but no Value Field. This is the DIC Tech Platform\'s own Top-Priority Metric in its v1 Spec.</span></span></span>';
         var valueByProvider = providers.length ? providers.map(function (pv) {
           return '<div style="display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:16px;background:var(--neutral-25);border:1px solid var(--border-subtle);border-radius:12px">'
             + '<span style="font:800 26px/30px var(--font-sans);letter-spacing:-0.02em;color:var(--text-tertiary)">—</span>'
             + '<span class="klabel">' + esc(pv) + '</span>'
             + '<span class="chip awaiting" style="align-self:flex-start">Awaiting data</span></div>';
         }).join('') : '';
-        var valueCard = '<div class="card" style="gap:12px"><div style="display:flex;align-items:baseline;gap:8px"><h2 class="ctitle">TOTAL IN-KIND VALUE DELIVERED</h2>' + valueInfoTip + '<span class="chip" style="background:var(--status-info-bg);color:var(--status-info)">Innovate Priority Metric</span></div>'
+        var valueCard = '<div class="card" style="gap:12px"><div style="display:flex;align-items:baseline;gap:8px"><h2 class="ctitle">TOTAL IN-KIND VALUE DELIVERED</h2>' + valueInfoTip + '<span class="chip" style="background:var(--status-info-bg);color:var(--status-info)">Platform Priority Metric</span></div>'
           + (valueByProvider ? ('<div class="grid-collapse" style="display:grid;grid-template-columns:repeat(' + providers.length + ',1fr);gap:14px">' + valueByProvider + '</div>') : '')
           + '<p class="cap">Broken down by Provider so it\'s Clear whether Delivered Value is Concentrated in one Vendor or Spread across Many. Populates once Perk Records Carry a Value Field.</p></div>';
 
         /* ---- perk approval-chain breakdown — real data, approximated.
            The current status field (New / On Hold / Activation communicated /
            Activated) doesn't distinguish "pending coach approval" from
-           "pending operator approval" the way Innovate's two-step chain does,
+           "pending operator approval" the way the DIC Tech Platform's two-step chain does,
            but it maps reasonably well onto stages of that same chain. */
         var chainBase = recs.filter(function (r) {
           return (F.startup === 'All' || r.startup === F.startup)
@@ -6351,10 +6351,10 @@
             + '<span style="width:100px;flex:none;text-align:right;font:400 12.5px/17px var(--font-sans);color:var(--text-secondary)"><strong style="color:var(--text-primary)">' + c.n + '</strong> request' + (c.n === 1 ? '' : 's') + '</span></div>';
         }).join('');
         var chainInfoTip = '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:300px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Innovate Routes Every Perk Request through two Approvals — a Coach First, then an Operator, who Assigns the Value. Today\'s Status Field Doesn\'t Say which Approval a Pending Request is Waiting on, but it Maps Reasonably well onto Stages of that Same Chain. If Innovate Later Adds a "Current Approver" Field, this Card Upgrades from an Approximation to the Real two-Step Chain with no Layout Change.</span></span></span>';
+          + '<span class="infobubble" style="width:300px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">The DIC Tech Platform Routes Every Perk Request through two Approvals — a Coach First, then an Operator, who Assigns the Value. Today\'s Status Field Doesn\'t Say which Approval a Pending Request is Waiting on, but it Maps Reasonably well onto Stages of that Same Chain. If the DIC Tech Platform Later Adds a "Current Approver" Field, this Card Upgrades from an Approximation to the Real two-Step Chain with no Layout Change.</span></span></span>';
         var chainCard = '<div class="card" style="gap:12px"><h2 class="ctitle">PERK APPROVAL-CHAIN BREAKDOWN' + chainInfoTip + ' <span class="cap">· by Current Status</span></h2>'
           + '<div style="display:flex;flex-direction:column;gap:10px">' + chainRows + '</div>'
-          + '<p class="cap">Approximates Innovate\'s Request → Coach Approval → Operator Approval → Granted Chain using the Current Status Field. Shows where in the Pipeline Requests are Sitting, Independent of the Completed-Only Filter Above.</p></div>';
+          + '<p class="cap">Approximates the DIC Tech Platform\'s Request → Coach Approval → Operator Approval → Granted Chain using the Current Status Field. Shows where in the Pipeline Requests are Sitting, Independent of the Completed-Only Filter Above.</p></div>';
 
         return ''
           + '<div style="display:flex;flex-direction:column;gap:20px">'
