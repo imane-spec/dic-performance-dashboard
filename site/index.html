@@ -7065,13 +7065,13 @@
         fetch('/api/signup', {
           method: 'POST', credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, password: password })
+          body: JSON.stringify({ email: email, password: password, confirmPassword: confirm })
         }).then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
           .then(function (result) {
             S.loginBusy = false;
             if (result.ok && result.data && result.data.ok) {
-              if (result.data.email && result.data.authenticated !== false) { mountDashboard(result.data.email); return; }
-              S.loginStep = 'login'; S.loginError = null; S.loginNotice = result.data.message || 'Account created. Sign in to continue.';
+              /* The backend does not start a session on sign-up: return to sign-in with the email filled in. */
+              S.loginStep = 'login'; S.loginError = null; S.loginEmail = result.data.email || email; S.loginNotice = 'Account created. Sign in with your new password to continue.';
               renderLoginScreen();
             } else {
               S.loginError = (result.data && result.data.error) || 'Could not create the account. Please try again.';
