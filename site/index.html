@@ -411,6 +411,8 @@
         grid-template-columns: 1fr !important
       }
       #dic-root .dic-since-grid { grid-template-columns: repeat(2, 1fr) !important }
+      #dic-root .dic-since-grid > * { grid-column: auto !important }
+      #dic-root .dic-since-grid > [data-g="finance"] { grid-column: 1 / -1 !important }
       /* Overview's cohort-health donut + legend + "Requires Attention" panel is
          a flex row (not a grid, so the rule above doesn't reach it) with fixed
          min-widths on its pieces that add up to wider than a tablet/phone
@@ -538,6 +540,7 @@
        enough room there for it to work reasonably; phones get this instead. */
     @media (max-width:768px) {
       .dic-desktop-controls { display: none !important }
+      .dic-navtabs { display: none !important }
       .dic-hamburger { display: flex !important }
       .dic-navbar { padding: 0 16px !important }
     }
@@ -661,6 +664,8 @@
       #dic-overlay [style*="font:800 24px"] { font-size: 22px !important; line-height: 26px !important }
       #dic-overlay [style*="font:500 14px/18px"] { font-size: 12px !important; line-height: 16px !important }
       #dic-overlay .dic-since-grid { grid-template-columns: repeat(2, 1fr) !important }
+      #dic-overlay .dic-since-grid > * { grid-column: auto !important }
+      #dic-overlay .dic-since-grid > [data-g="finance"] { grid-column: 1 / -1 !important }
       .dic-ov-progress-track { display: none }
     }
 
@@ -714,10 +719,10 @@
       {
         "key": "workshops",
         "label": "Workshops",
-        "done": 9,
+        "done": 11,
         "scope": 36,
         "unit": "sessions",
-        "subtext": "9 of 36 planned workshops delivered",
+        "subtext": "11 of 36 planned workshops delivered",
         "source": "brief"
       },
       {
@@ -1399,6 +1404,24 @@
         "peopleAttended": 19,
         "satisfaction": 86.0,
         "optionalTracks": []
+      },
+      {
+        "name": "Workshop 10",
+        "date": "16 September 2026",
+        "attended": 12,
+        "total": 15,
+        "peopleAttended": 21,
+        "satisfaction": 96.0,
+        "optionalTracks": []
+      },
+      {
+        "name": "Workshop 11",
+        "date": "30 September 2026",
+        "attended": 13,
+        "total": 15,
+        "peopleAttended": 26,
+        "satisfaction": 100.0,
+        "optionalTracks": []
       }
     ],
     "byTrack": [
@@ -2002,13 +2025,13 @@
     "highlights": {
       "top": [
         "Gap Lens",
-        "Well mind",
-        "Aiduclass"
+        "Aiduclass",
+        "Well mind"
       ],
       "bottom": [
         "Visual Truth",
         "ATF",
-        "Beyond Academics"
+        "OMeShield"
       ]
     },
     "notes": [
@@ -2036,7 +2059,9 @@
           true,
           false,
           true,
-          false
+          false,
+          true,
+          true
         ],
         "sector": null,
         "stage": null,
@@ -2074,6 +2099,8 @@
           true,
           true,
           true,
+          true,
+          false,
           true
         ],
         "sector": null,
@@ -2104,6 +2131,8 @@
         "name": "TrueLinksAI",
         "track": "Idea Bolster",
         "att": [
+          true,
+          true,
           true,
           true,
           true,
@@ -2150,7 +2179,9 @@
           false,
           false,
           false,
-          false
+          false,
+          true,
+          true
         ],
         "sector": null,
         "stage": null,
@@ -2187,6 +2218,8 @@
           true,
           true,
           false,
+          true,
+          true,
           true,
           true
         ],
@@ -2226,6 +2259,8 @@
           true,
           false,
           true,
+          true,
+          true,
           true
         ],
         "sector": null,
@@ -2259,6 +2294,8 @@
           false,
           true,
           true,
+          false,
+          false,
           false,
           false,
           false,
@@ -2302,6 +2339,8 @@
           true,
           false,
           false,
+          true,
+          true,
           true
         ],
         "sector": null,
@@ -2332,6 +2371,8 @@
         "name": "Aiduclass",
         "track": "Idea Bolster",
         "att": [
+          true,
+          true,
           true,
           true,
           true,
@@ -2378,6 +2419,8 @@
           true,
           true,
           true,
+          true,
+          true,
           true
         ],
         "sector": null,
@@ -2416,6 +2459,8 @@
           true,
           true,
           false,
+          true,
+          true,
           true
         ],
         "sector": null,
@@ -2454,6 +2499,8 @@
           false,
           false,
           false,
+          false,
+          false,
           false
         ],
         "sector": null,
@@ -2484,6 +2531,8 @@
         "name": "Mitigant",
         "track": "Venture Catalyst",
         "att": [
+          true,
+          true,
           true,
           true,
           true,
@@ -2530,6 +2579,8 @@
           true,
           true,
           true,
+          true,
+          true,
           true
         ],
         "sector": null,
@@ -2560,6 +2611,8 @@
         "name": "Gap Lens",
         "track": "Venture Catalyst",
         "att": [
+          true,
+          true,
           true,
           true,
           true,
@@ -2614,42 +2667,42 @@
       },
       {
         "rank": 2,
-        "startup": "Well mind",
-        "track": "Venture Catalyst",
-        "exception": false,
-        "mandatoryAttPct": 100,
-        "coachingAttPct": 92.3,
-        "talksAttended": 3,
-        "optionalWsAttended": 0,
-        "baseScore": 95.8,
-        "bonusPoints": 3,
-        "finalScore": 98.8
-      },
-      {
-        "rank": 3,
         "startup": "Aiduclass",
         "track": "Idea Bolster",
         "exception": false,
         "mandatoryAttPct": 100,
-        "coachingAttPct": 83.3,
+        "coachingAttPct": 83.0,
         "talksAttended": 4,
         "optionalWsAttended": 0,
-        "baseScore": 90.8,
+        "baseScore": 90.7,
         "bonusPoints": 4,
-        "finalScore": 94.8
+        "finalScore": 94.7
+      },
+      {
+        "rank": 3,
+        "startup": "Well mind",
+        "track": "Venture Catalyst",
+        "exception": false,
+        "mandatoryAttPct": 100,
+        "coachingAttPct": 83.0,
+        "talksAttended": 3,
+        "optionalWsAttended": 0,
+        "baseScore": 90.7,
+        "bonusPoints": 3,
+        "finalScore": 93.7
       },
       {
         "rank": 4,
-        "startup": "CiteWise",
-        "track": "Pivot Booster",
-        "exception": true,
-        "mandatoryAttPct": 80.0,
-        "coachingAttPct": 91.7,
-        "talksAttended": 3,
-        "optionalWsAttended": 2,
-        "baseScore": 86.4,
-        "bonusPoints": 5,
-        "finalScore": 91.4
+        "startup": "Vora",
+        "track": "Idea Bolster",
+        "exception": false,
+        "mandatoryAttPct": 87.5,
+        "coachingAttPct": 92.0,
+        "talksAttended": 2,
+        "optionalWsAttended": 0,
+        "baseScore": 90,
+        "bonusPoints": 2,
+        "finalScore": 92
       },
       {
         "rank": 5,
@@ -2657,51 +2710,51 @@
         "track": "Venture Catalyst",
         "exception": false,
         "mandatoryAttPct": 100,
-        "coachingAttPct": 76.9,
+        "coachingAttPct": 75.0,
         "talksAttended": 4,
         "optionalWsAttended": 0,
-        "baseScore": 87.3,
+        "baseScore": 86.3,
         "bonusPoints": 4,
-        "finalScore": 91.3
+        "finalScore": 90.3
       },
       {
         "rank": 6,
-        "startup": "Vora",
-        "track": "Idea Bolster",
-        "exception": false,
-        "mandatoryAttPct": 77.8,
-        "coachingAttPct": 91.7,
-        "talksAttended": 2,
-        "optionalWsAttended": 0,
-        "baseScore": 85.4,
-        "bonusPoints": 2,
-        "finalScore": 87.4
+        "startup": "CiteWise",
+        "track": "Pivot Booster",
+        "exception": true,
+        "mandatoryAttPct": 75.0,
+        "coachingAttPct": 92.0,
+        "talksAttended": 3,
+        "optionalWsAttended": 2,
+        "baseScore": 84.4,
+        "bonusPoints": 5,
+        "finalScore": 89.4
       },
       {
         "rank": 7,
-        "startup": "Attanur Aiko",
-        "track": "Idea Bolster",
-        "exception": false,
-        "mandatoryAttPct": 88.9,
-        "coachingAttPct": 83.3,
-        "talksAttended": 1,
-        "optionalWsAttended": 0,
-        "baseScore": 85.8,
-        "bonusPoints": 1,
-        "finalScore": 86.8
-      },
-      {
-        "rank": 8,
         "startup": "ThirdSpace",
         "track": "Idea Bolster",
         "exception": false,
-        "mandatoryAttPct": 55.6,
+        "mandatoryAttPct": 62.5,
         "coachingAttPct": 100,
         "talksAttended": 4,
         "optionalWsAttended": 0,
-        "baseScore": 80,
+        "baseScore": 83.1,
         "bonusPoints": 4,
-        "finalScore": 84
+        "finalScore": 87.1
+      },
+      {
+        "rank": 8,
+        "startup": "Attanur Aiko",
+        "track": "Idea Bolster",
+        "exception": false,
+        "mandatoryAttPct": 87.5,
+        "coachingAttPct": 83.0,
+        "talksAttended": 1,
+        "optionalWsAttended": 0,
+        "baseScore": 85,
+        "bonusPoints": 1,
+        "finalScore": 86
       },
       {
         "rank": 9,
@@ -2709,12 +2762,12 @@
         "track": "Idea Bolster",
         "exception": false,
         "mandatoryAttPct": 100,
-        "coachingAttPct": 66.7,
+        "coachingAttPct": 67.0,
         "talksAttended": 2,
         "optionalWsAttended": 0,
-        "baseScore": 81.7,
+        "baseScore": 81.9,
         "bonusPoints": 2,
-        "finalScore": 83.7
+        "finalScore": 83.9
       },
       {
         "rank": 10,
@@ -2722,77 +2775,77 @@
         "track": "Idea Bolster",
         "exception": false,
         "mandatoryAttPct": 100,
-        "coachingAttPct": 58.3,
+        "coachingAttPct": 58.0,
         "talksAttended": 2,
         "optionalWsAttended": 0,
-        "baseScore": 77.1,
+        "baseScore": 76.9,
         "bonusPoints": 2,
-        "finalScore": 79.1
+        "finalScore": 78.9
       },
       {
         "rank": 11,
         "startup": "Diraya",
         "track": "Pivot Booster",
         "exception": true,
-        "mandatoryAttPct": 80.0,
-        "coachingAttPct": 66.7,
+        "mandatoryAttPct": 75.0,
+        "coachingAttPct": 67.0,
         "talksAttended": 0,
-        "optionalWsAttended": 2,
-        "baseScore": 72.7,
-        "bonusPoints": 2,
-        "finalScore": 74.7
+        "optionalWsAttended": 1,
+        "baseScore": 70.6,
+        "bonusPoints": 1,
+        "finalScore": 71.6
       },
       {
         "rank": 12,
-        "startup": "OMeShield",
-        "track": "Idea Bolster",
-        "exception": false,
-        "mandatoryAttPct": 77.8,
-        "coachingAttPct": 61.5,
-        "talksAttended": 2,
-        "optionalWsAttended": 0,
-        "baseScore": 68.8,
-        "bonusPoints": 2,
-        "finalScore": 70.8
-      },
-      {
-        "rank": 13,
         "startup": "Beyond Academics",
         "track": "Pivot Booster",
         "exception": true,
-        "mandatoryAttPct": 20.0,
+        "mandatoryAttPct": 25.0,
         "coachingAttPct": 100,
         "talksAttended": 0,
         "optionalWsAttended": 2,
-        "baseScore": 64,
+        "baseScore": 66.3,
         "bonusPoints": 2,
-        "finalScore": 66
+        "finalScore": 68.3
+      },
+      {
+        "rank": 13,
+        "startup": "OMeShield",
+        "track": "Idea Bolster",
+        "exception": false,
+        "mandatoryAttPct": 75.0,
+        "coachingAttPct": 58.0,
+        "talksAttended": 2,
+        "optionalWsAttended": 0,
+        "baseScore": 65.7,
+        "bonusPoints": 2,
+        "finalScore": 67.7
       },
       {
         "rank": 14,
         "startup": "ATF",
         "track": "Idea Bolster",
         "exception": false,
-        "mandatoryAttPct": 77.8,
-        "coachingAttPct": 33.3,
+        "mandatoryAttPct": 75.0,
+        "coachingAttPct": 33.0,
         "talksAttended": 0,
         "optionalWsAttended": 0,
-        "baseScore": 53.3,
+        "baseScore": 51.9,
         "bonusPoints": 0,
-        "finalScore": 53.3
+        "finalScore": 51.9
       },
       {
         "rank": 15,
         "startup": "Visual Truth",
         "track": "Idea Bolster",
         "exception": false,
-        "mandatoryAttPct": 22.2,
-        "coachingAttPct": 15.4,
+        "mandatoryAttPct": 25.0,
+        "coachingAttPct": 17.0,
         "talksAttended": 1,
         "optionalWsAttended": 0,
-        "baseScore": 18.5,
+        "baseScore": 20.6,
         "bonusPoints": 1,
-        "finalScore": 19.5
+        "finalScore": 21.6
       }
     ]
   },
@@ -2824,14 +2877,9 @@
         "subtext": "Share of Programme Milestones Completed (Self-Reported, Pending Validation)"
       },
       "totalIncubatedStartups": {
-        "value": 20,
+        "value": 411,
         "source": "file",
-        "subtext": "Total startups incubated by DIC since inception, across All Cohorts"
-      },
-      "survivalRate": {
-        "value": 0.75,
-        "source": "file",
-        "subtext": "15 of 20 Startups Incubated Since Inception are Still Operating"
+        "subtext": "Total startups since incubation, across all cohorts"
       }
     },
     "portfolioHealth": {
@@ -4125,9 +4173,9 @@
     "reconciliations": [
       {
         "metric": "Workshops delivered",
-        "brief": "9 sessions",
-        "workbook": "9 dated workshop columns (7 May to 19 Aug)",
-        "resolution": "Resolved: the workbook now carries all 9 dated workshops, each with a satisfaction rate and a startup attendance count. The progress figure and the attendance charts agree at 9."
+        "brief": "11 sessions",
+        "workbook": "11 dated workshop columns (7 May to 30 Sep)",
+        "resolution": "Resolved: the workbook now carries all 11 dated workshops, each with a satisfaction rate and a startup attendance count. The progress figure and the attendance charts agree at 11."
       },
       {
         "metric": "DIC Talks delivered",
@@ -4951,10 +4999,10 @@
     "source": "file",
     "fxRate": 3.64,
     "fxNote": "QAR per 1 USD (official peg)",
-    "caption": "Figures since incubation, covering all startups. Revenue and investment are reported in USD and converted to QAR at 3.64.",
     "metrics": [
       {
         "key": "revenue",
+        "group": "finance",
         "label": "Revenue generated",
         "value": 178736907,
         "currency": "USD",
@@ -4962,6 +5010,7 @@
       },
       {
         "key": "investment",
+        "group": "finance",
         "label": "Investment raised",
         "value": 316067653,
         "currency": "USD",
@@ -4969,6 +5018,7 @@
       },
       {
         "key": "jobs",
+        "group": "reach",
         "label": "Jobs created (employees)",
         "value": 1485,
         "currency": null,
@@ -4976,6 +5026,7 @@
       },
       {
         "key": "startups",
+        "group": "hero",
         "label": "Total startups",
         "value": 411,
         "currency": null,
@@ -4983,6 +5034,7 @@
       },
       {
         "key": "entrepreneurs",
+        "group": "reach",
         "label": "Entrepreneurs supported",
         "value": 1078,
         "currency": null,
@@ -4990,6 +5042,7 @@
       },
       {
         "key": "registered",
+        "group": "reach",
         "label": "Companies registered",
         "value": 130,
         "currency": null,
@@ -4997,6 +5050,7 @@
       },
       {
         "key": "qatari",
+        "group": "inclusion",
         "label": "Qatari entrepreneurs",
         "value": 167,
         "currency": null,
@@ -5005,6 +5059,7 @@
       },
       {
         "key": "female",
+        "group": "inclusion",
         "label": "Female entrepreneurs",
         "value": 256,
         "currency": null,
@@ -5012,6 +5067,7 @@
       },
       {
         "key": "qatariFemale",
+        "group": "inclusion",
         "label": "Qatari female entrepreneurs",
         "value": 56,
         "currency": null,
@@ -5038,7 +5094,7 @@
          same everywhere it is used for routing, so this only changes what the
          tab reads on screen (per Yusuf's note that "Delivery" was confusing
          since it silently combined two different things). */
-      var VIEW_LABELS = { 'Delivery': 'Workshops & Talks' };
+      var VIEW_LABELS = { 'Delivery': 'Events' };
       /* Per the State of Qatar Master Brand Guidelines, Dune is reserved for the
          Executive branch — the earlier brand-compliance pass (round 6) deliberately
          avoided it for that reason. Imane has since asked for it here specifically,
@@ -5047,7 +5103,7 @@
          step down in tint — 100% / 80% / 60% of Dune #A29475 — with the first box's
          white text switching to dark text on the two lighter tints for contrast. */
       var DUNE_RGB = '162,148,117';
-      var EXEC_COLORS = ['rgba(' + DUNE_RGB + ',1)', 'rgba(' + DUNE_RGB + ',0.8)', 'rgba(' + DUNE_RGB + ',0.6)'];
+      var EXEC_COLORS = ['var(--qatar-skyline)', 'var(--qatar-skyline)', 'var(--qatar-skyline)'];
       var EXEC_TEXT_DARK = [false, false, false];
       /* Cohort health donut + legend colors, per Imane's request. The display-mode
          board's Cohort 12 donut now reuses this exact array too, so the two screens
@@ -5074,7 +5130,7 @@
       };
       /* Since-incubation figures: USD source values converted to QAR at the
          programme FX rate (data.sinceIncubation.fxRate). compactNum shortens large
-         values to M / B; the full figures stay in each tile's hover title. */
+         values to M / B; full figures stay in each tile's hover title. */
       var compactNum = function (v) {
         if (v >= 1e9) return String(Math.round(v / 1e7) / 100).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1') + 'B';
         if (v >= 1e6) return String(Math.round(v / 1e5) / 10).replace(/\.0$/, '') + 'M';
@@ -5087,6 +5143,15 @@
             title: m.label + ': USD ' + nfmt(m.value) + ' x ' + fx + ' = QAR ' + nfmt(Math.round(qar)) };
         }
         return { primary: nfmt(m.value), sub: null, title: m.label + (m.note ? ' (' + m.note + ')' : '') };
+      };
+      /* MCIT palette per group (State of Qatar Master Brand Guidelines): Al Adaam
+         maroon for the headline count, Skyline navy for money, Palm-tinted for
+         programme reach, Sea-tinted for inclusion. Dune is not used (Executive
+         branch only). Text/background pairs checked for WCAG AA. */
+      var SINCE_STYLE = {
+        finance:   { bg: 'var(--qatar-skyline)', border: 'var(--qatar-skyline)', num: '#FFFFFF', sub: '#C3CBD1', label: 'rgba(255,255,255,0.88)', icon: 'rgba(255,255,255,0.18)' },
+        reach:     { bg: '#E3EFF4', border: '#C9DFE9', num: '#0D4261', sub: '#6B6468', label: '#4A4347', icon: '#4194B3' },
+        inclusion: { bg: '#E0F2EF', border: '#BFE3DC', num: '#00705B', sub: '#6B6468', label: '#4A4347', icon: '#009C80' }
       };
       var median = function (arr) { if (!arr.length) return null; var a = arr.slice().sort(function (x, y) { return x - y; }); var m = Math.floor(a.length / 2); return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
       var mean = function (arr) { return arr.length ? sum(arr) / arr.length : null; };
@@ -5399,11 +5464,8 @@
       /* Visible top-level tabs, plus two grouped dropdowns so the bar stays short
          without losing any destination. Portfolio was removed (its content moved
          to the top of Startups); Methodology has no nav entry (see Overview link). */
-      var NAV_VISIBLE = ['Overview', 'Delivery', 'Startups'];
-      var NAV_GROUPS = [
-        { key: 'Programs', label: 'Programs', views: ['Coaching', 'Mentorship'] },
-        { key: 'More', label: 'More', views: ['Social Media Performance', 'Perks'] }
-      ];
+      var NAV_VISIBLE = ['Overview', 'Delivery', 'Startups', 'Coaching', 'Mentorship', 'Social Media Performance', 'Perks'];
+      var NAV_GROUPS = [];
       /* Shared list of cohort <option> tags — used by both the desktop select
          (in the nav bar) and the mobile menu's own copy of that same select. */
       function cohortOptionsHtml() {
@@ -5444,7 +5506,7 @@
         var hamburger = '<button class="dic-hamburger" data-mobile-toggle="1" aria-label="' + (S.mobileNavOpen ? 'Close navigation menu' : 'Open navigation menu') + '" aria-expanded="' + (S.mobileNavOpen ? 'true' : 'false') + '" style="display:none;flex:none;width:40px;height:40px;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:10px;background:var(--surface-card);color:var(--text-secondary);cursor:pointer;margin-left:auto">' + hamburgerIcon + '</button>';
         return ''
           + '<div id="dic-nav" style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:var(--shadow-nav)">'
-          + '<div class="dic-navbar" style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:0 24px;height:64px">'
+          + '<div class="dic-navbar" style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:0 24px;height:60px">'
           + '<div style="display:flex;flex-direction:column;flex:none">'
           + '<span class="dic-logo-title" style="font:700 19px/24px var(--font-sans);color:var(--text-primary)">DIC Performance<span style="color:var(--qatar-maroon)">.</span></span>'
           + '<span class="dic-logo-sub" style="font:400 10.5px/13px var(--font-sans);color:var(--text-tertiary)">' + esc(M.meta.programme || 'Digital Incubation Center') + ' · MCIT · ' + esc(M.meta.operator || 'Operated by Ibtechar') + '</span>'
@@ -5453,21 +5515,28 @@
              single breakpoint (see .dic-desktop-controls in <style>) can swap
              the whole group for the hamburger icon on a phone in one rule,
              rather than hiding each control individually. */
-          + '<div class="dic-desktop-controls" style="display:flex;align-items:center;gap:16px;flex:1;min-width:0">'
-          + '<div style="position:relative;flex:1;min-width:0;display:flex;align-items:center">'
-          + '<div id="dic-navscroll" class="noscroll" style="display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;scroll-behavior:smooth">' + pills + '</div>'
+          + '<div class="dic-desktop-controls" style="display:flex;align-items:center;justify-content:flex-end;gap:16px;flex:1;min-width:0">'
+          + '<div style="display:none">'
+          + '<div id="dic-navscroll-unused">' + '</div>'
           + '<div id="dic-navfade-l" aria-hidden="true" style="position:absolute;top:0;bottom:0;left:0;width:22px;background:linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,0.96));pointer-events:none;opacity:0;transition:opacity 150ms ease-out"></div>'
           + '<div id="dic-navfade-r" aria-hidden="true" style="position:absolute;top:0;bottom:0;right:0;width:22px;background:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.96));pointer-events:none;opacity:0;transition:opacity 150ms ease-out"></div>'
           + '</div>'
           /* Group dropdowns live outside the horizontally-scrolling pill strip so
              their menus are never clipped by that container's overflow-x:auto. */
-          + '<div style="display:flex;gap:2px;flex:none">' + groups + '</div>'
           + '<span class="dic-asof" style="flex:none;font:400 11.5px/15px var(--font-sans);color:var(--text-tertiary)">As published · ' + esc(M.meta.asOf || '') + '</span>'
           + '<button class="ghost" data-display="on" style="border:1px solid var(--border-default);cursor:pointer;flex:none;height:38px;padding:0 14px;border-radius:999px;background:var(--surface-card);color:var(--text-secondary);font:600 12.5px/16px var(--font-sans)">Display Mode</button>'
           + cohortSelect
           + (S.authedEmail ? ('<button data-logout="1" class="ghost" title="Signed in as ' + esc(S.authedEmail) + ' · Sign out" style="border:1px solid var(--border-default);cursor:pointer;flex:none;height:38px;padding:0 14px;border-radius:999px;background:var(--surface-card);color:var(--text-secondary);font:600 12.5px/16px var(--font-sans)">Sign out</button>') : '')
           + '</div>'
           + hamburger
+          + '</div>'
+          + '<div class="dic-navtabs" style="max-width:1320px;margin:0 auto;padding:0 24px">'
+          + '<div style="height:1px;background:var(--border-subtle)"></div>'
+          + '<div style="position:relative;display:flex;justify-content:center;padding:8px 0 10px">'
+          + '<div id="dic-navscroll" class="noscroll" style="display:flex;gap:2px;max-width:100%;overflow-x:auto;scroll-behavior:smooth">' + pills + '</div>'
+          + '<div id="dic-navfade-l" aria-hidden="true" style="position:absolute;top:0;bottom:0;left:0;width:22px;background:linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,0.96));pointer-events:none;opacity:0;transition:opacity 150ms ease-out"></div>'
+          + '<div id="dic-navfade-r" aria-hidden="true" style="position:absolute;top:0;bottom:0;right:0;width:22px;background:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.96));pointer-events:none;opacity:0;transition:opacity 150ms ease-out"></div>'
+          + '</div>'
           + '</div>'
           + '</div>';
       }
@@ -5542,12 +5611,13 @@
         /* impact tiles — the four self-reported programme figures (excludes
            the incubated-count / survival-rate hero pair, shown separately) */
         var sinceFx = M.since ? M.since.fxRate : 3.64;
-        var impactTiles = (M.since ? M.since.metrics : []).map(function (m) {
-          var t = sinceTileData(m, sinceFx);
-          return '<div title="' + esc(t.title) + '" style="display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:20px 16px;background:var(--neutral-25);border:1px solid var(--border-subtle);border-radius:12px;min-width:0">'
-            + '<span style="font:800 32px/34px var(--font-sans);letter-spacing:-0.02em;white-space:nowrap;color:var(--text-primary)">' + t.primary + '</span>'
-            + (t.sub ? '<span style="font:500 14px/18px var(--font-sans);color:var(--text-tertiary)">' + t.sub + '</span>' : '')
-            + '<span class="klabel" style="margin-top:auto">' + esc(m.label) + '</span>'
+        var sinceHero = M.since ? M.since.metrics.filter(function (m) { return m.group === 'hero'; })[0] : null;
+        var impactTiles = (M.since ? M.since.metrics.filter(function (m) { return m.group !== 'hero'; }) : []).map(function (m) {
+          var t = sinceTileData(m, sinceFx), g = SINCE_STYLE[m.group] || SINCE_STYLE.reach;
+          return '<div data-g="' + m.group + '" title="' + esc(t.title) + '" style="grid-column:span ' + (m.group === 'finance' ? 3 : 2) + ';display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:20px 16px;background:' + g.bg + ';border:1px solid ' + g.border + ';border-radius:12px;min-width:0">'
+            + '<span style="font:800 32px/34px var(--font-sans);letter-spacing:-0.02em;white-space:nowrap;color:' + g.num + '">' + t.primary + '</span>'
+            + (t.sub ? '<span style="font:500 14px/18px var(--font-sans);color:' + g.sub + '">' + t.sub + '</span>' : '')
+            + '<span class="klabel" style="margin-top:auto;color:' + g.label + '">' + esc(m.label) + '</span>'
             + '</div>';
         }).join('');
 
@@ -5566,22 +5636,13 @@
           + '<div class="card" style="gap:16px">'
           + '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap"><span class="eyebrow">Programme Impact Since Inception</span>' + scopeChip('programme') + '</div>'
           + '<div class="grid-collapse" style="display:grid;grid-template-columns:1.35fr 3fr;gap:14px">'
-          + '<div style="display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px;background:var(--neutral-25);border:1px solid var(--border-subtle);border-radius:12px">'
-          + '<span style="font:800 72px/70px var(--font-sans);letter-spacing:-0.02em;color:var(--text-primary)">' + (hasTotal ? totalIncubated.value : '—') + '</span>'
-          + '<span class="klabel">Total startups incubated</span>'
-          + (hasSurvival
-            ? ('<span class="chip" style="align-self:flex-start;background:var(--status-success-bg);color:var(--status-success)">' + Math.round(survival.value * 100) + '% Survival Rate</span>')
-            : '<span class="chip awaiting" style="align-self:flex-start">Survival Rate Awaiting Data</span>')
-          + '<div style="display:flex;align-items:center;gap:8px;margin-top:2px">'
-          + '<span class="chip awaiting">Graduated — Awaiting data</span>'
-          + '<span class="chip awaiting">Withdrawn — Awaiting data</span>'
-          + '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">The Survival Rate Above (' + (hasSurvival ? Math.round(survival.value * 100) + '%' : '—') + ') Doesn\'t Yet Say Why a Startup is no Longer Operating. Innovate Tracks Startup Lifecycle Status Directly (Graduated vs Withdrawn), which the Current Workbook Doesn\'t Carry — Once it Does, this Splits the Survival Figure into its two Component Outcomes.</span></span></span>'
+          + '<div style="display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px;background:var(--qatar-maroon);border:1px solid var(--qatar-maroon);border-radius:12px;min-width:0" title="' + esc(sinceHero ? 'Total startups since incubation' : '') + '">'
+          + '<span style="font:800 72px/70px var(--font-sans);letter-spacing:-0.02em;color:#FFFFFF">' + (sinceHero ? nfmt(sinceHero.value) : '—') + '</span>'
+          + '<span class="klabel" style="color:rgba(255,255,255,0.9)">Total startups</span>'
           + '</div>'
+          + '<div class="dic-since-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px">' + impactTiles + '</div>'
           + '</div>'
-          + '<div class="dic-since-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">' + impactTiles + '</div>'
-          + '</div>'
-          + '<p class="cap">Figures Since Incubation Cover All Startups. Revenue and Investment are Reported in USD and Converted to QAR at ' + sinceFx + ' per USD; the USD Value is Shown Beneath. The Survival Rate is ' + (hasSurvival ? esc(survival.subtext) : 'Not Yet Available') + '.</p>'
+          + '<p class="cap">Figures Since Incubation Cover All Startups. Revenue and Investment are Reported in USD and Converted to QAR at ' + sinceFx + ' per USD; the USD Value is Shown Beneath.</p>'
           + '</div>'
 
           /* ================= LAYER 2 — CURRENT COHORT PERFORMANCE =================
@@ -5603,7 +5664,7 @@
           + legendRow('background:' + HEALTH_COLORS[0], 'On Track', M.health.on)
           + legendRow('background:' + HEALTH_COLORS[1], 'At Risk', M.health.risk)
           + legendRow('background:' + HEALTH_COLORS[2], 'Off Track', M.health.off)
-          + (M.health.withdrawn ? legendRow('background:var(--neutral-500)', 'Withdrawn', M.health.withdrawn) : '')
+          + (M.health.withdrawn ? legendRow('background:var(--neutral-300)', 'Withdrawn', M.health.withdrawn) : '')
           + '</div>'
           + '<div style="display:flex;flex-direction:column;gap:10px;flex:1;min-width:220px;background:var(--status-error-bg);border-radius:12px;padding:16px 20px">'
           + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px">'
@@ -6625,14 +6686,15 @@
 
         /* ---- Board B: Programme impact (pending figures shown honestly) ---- */
         var sinceFxD = M.since ? M.since.fxRate : 3.64;
-        var impactTiles = (M.since ? M.since.metrics : []).map(function (m) {
-          var t = sinceTileData(m, sinceFxD);
-          return '<div class="clkd card" data-exit-to="Overview" title="' + esc(t.title) + '" style="padding:16px;justify-content:space-between;gap:8px;min-width:0">'
-            + dmIcon(m.icon, 'var(--qatar-skyline)')
+        var sinceHeroD = M.since ? M.since.metrics.filter(function (m) { return m.group === 'hero'; })[0] : null;
+        var impactTiles = (M.since ? M.since.metrics.filter(function (m) { return m.group !== 'hero'; }) : []).map(function (m) {
+          var t = sinceTileData(m, sinceFxD), g = SINCE_STYLE[m.group] || SINCE_STYLE.reach;
+          return '<div class="clkd card" data-g="' + m.group + '" data-exit-to="Overview" title="' + esc(t.title) + '" style="grid-column:span ' + (m.group === 'finance' ? 3 : 2) + ';padding:16px;justify-content:space-between;gap:8px;min-width:0;background:' + g.bg + ';border:1px solid ' + g.border + '">'
+            + dmIcon(m.icon, g.icon)
             + '<div style="display:flex;flex-direction:column;gap:4px">'
-            + '<span style="font:800 24px/28px var(--font-sans);letter-spacing:-0.02em;white-space:nowrap;color:var(--text-primary)">' + t.primary + '</span>'
-            + (t.sub ? '<span style="font:500 14px/18px var(--font-sans);color:var(--text-tertiary)">' + t.sub + '</span>' : '')
-            + '<span class="klabel">' + esc(m.label) + '</span></div></div>';
+            + '<span style="font:800 24px/28px var(--font-sans);letter-spacing:-0.02em;white-space:nowrap;color:' + g.num + '">' + t.primary + '</span>'
+            + (t.sub ? '<span style="font:500 14px/18px var(--font-sans);color:' + g.sub + '">' + t.sub + '</span>' : '')
+            + '<span class="klabel" style="color:' + g.label + '">' + esc(m.label) + '</span></div></div>';
         }).join('');
         var totalIncubatedD = M.impact.totalIncubatedStartups;
         var hasTotalD = totalIncubatedD && totalIncubatedD.value != null;
@@ -6640,16 +6702,13 @@
         var hasSurvivalD = survivalD && survivalD.value != null;
 
         var boardB = '<div class="dic-board" data-board-el="0" style="display:grid;grid-template-columns:1.35fr 3fr;gap:14px">'
-          + '<div class="clkd card" data-exit-to="Overview" style="padding:24px;justify-content:space-between;gap:10px;background:var(--neutral-25);border:1px solid var(--border-subtle)">'
-          + '<div style="display:flex;align-items:center;gap:10px">' + dmIcon('rocket', 'var(--qatar-skyline)') + '<span class="eyebrow">Since inception</span></div>'
+          + '<div class="clkd card" data-exit-to="Overview" style="padding:24px;justify-content:space-between;gap:10px;background:var(--qatar-maroon);border:1px solid var(--qatar-maroon)">'
+          + '<div style="display:flex;align-items:center;gap:10px">' + dmIcon('rocket', 'rgba(255,255,255,0.2)') + '<span class="eyebrow" style="color:#FFFFFF">Since incubation</span></div>'
           + '<div style="display:flex;flex-direction:column;gap:10px">'
-          + '<span style="font:800 72px/70px var(--font-sans);letter-spacing:-0.02em;color:var(--text-primary)">' + (hasTotalD ? totalIncubatedD.value : '—') + '</span>'
-          + '<span class="klabel">Total startups incubated</span></div>'
-          + (hasSurvivalD
-            ? ('<span class="chip" style="align-self:flex-start;background:var(--status-success-bg);color:var(--status-success)">' + Math.round(survivalD.value * 100) + '% Survival Rate</span>')
-            : '<span class="chip awaiting" style="align-self:flex-start">Survival Rate Awaiting Data</span>')
+          + '<span style="font:800 72px/70px var(--font-sans);letter-spacing:-0.02em;color:#FFFFFF">' + (sinceHeroD ? nfmt(sinceHeroD.value) : '—') + '</span>'
+          + '<span class="klabel" style="color:rgba(255,255,255,0.9)">Total startups</span></div>'
           + '</div>'
-          + '<div class="grid-collapse dic-since-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">' + impactTiles + '</div>'
+          + '<div class="grid-collapse dic-since-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px">' + impactTiles + '</div>'
           + '<div style="grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;gap:20px">' + scopeChip('programme') + '<span style="font:400 13px/18px var(--font-sans);color:var(--text-tertiary)">Since incubation, all startups · USD converted to QAR at ' + sinceFxD + '</span></div>'
           + '</div>';
 
