@@ -6851,6 +6851,8 @@
           e.preventDefault();
           var action = loginBtn.getAttribute('data-login-action');
           if (action === 'login') submitLogin();
+          else if (action === 'to-signup') { S.loginStep = 'signup'; S.loginError = null; S.loginNotice = null; renderLoginScreen(); }
+          else if (action === 'signup') submitSignup();
           else if (action === 'forgot') { S.loginStep = 'forgot'; S.loginError = null; S.loginNotice = null; renderLoginScreen(); }
           else if (action === 'request-reset') submitForgotPassword();
           else if (action === 'resend-reset') submitForgotPassword(true);
@@ -6937,7 +6939,7 @@
         var ghostBtnStyle = 'width:100%;height:40px;border-radius:10px;border:1px solid var(--border-default);cursor:pointer;font:600 13px/18px var(--font-sans);background:var(--surface-card);color:var(--text-secondary)';
         var linkBtnStyle = 'background:none;border:none;cursor:pointer;padding:0;font:600 12.5px/18px var(--font-sans);color:var(--text-brand);text-align:center;width:100%';
         var errorHtml = S.loginError ? ('<p style="font:600 12.5px/18px var(--font-sans);color:var(--status-error);background:var(--status-error-bg);border-radius:8px;padding:8px 12px">' + esc(S.loginError) + '</p>') : '';
-        var noticeHtml = (S.loginStep === 'reset' && S.loginNotice) ? ('<p class="cap" style="text-align:center">' + esc(S.loginNotice) + '</p>') : '';
+        var noticeHtml = ((S.loginStep === 'reset' || S.loginStep === 'login') && S.loginNotice) ? ('<p class="cap" style="text-align:center">' + esc(S.loginNotice) + '</p>') : '';
         var offlineHtml = S.loginOffline ? '<p style="font:400 12px/18px var(--font-sans);color:var(--text-tertiary);text-align:center"></p>' : '';
 
         var body;
@@ -6952,6 +6954,24 @@
             + '</div>'
             + errorHtml
             + '<button data-login-action="request-reset" style="' + btnStyle + (S.loginBusy ? ';opacity:0.6' : '') + '"' + (S.loginBusy ? ' disabled' : '') + '>' + (S.loginBusy ? 'Sending…' : 'Send reset code') + '</button>'
+            + '<button data-login-action="back" style="' + ghostBtnStyle + '">Back to sign in</button>';
+        } else if (S.loginStep === 'signup') {
+          body = ''
+            + '<p style="font:400 13.5px/20px var(--font-sans);color:var(--text-secondary);text-align:center">Create your account to access the DIC Performance dashboard.</p>'
+            + '<div style="display:flex;flex-direction:column;gap:6px">'
+            + '<label class="klabel" for="dic-login-email">Email</label>'
+            + '<input id="dic-login-email" type="email" autocomplete="email" value="' + esc(S.loginEmail) + '" placeholder="you@example.com" style="' + inpStyle + '">'
+            + '</div>'
+            + '<div style="display:flex;flex-direction:column;gap:6px">'
+            + '<label class="klabel" for="dic-signup-password">Password</label>'
+            + '<input id="dic-signup-password" type="password" autocomplete="new-password" placeholder="At least 8 characters" style="' + inpStyle + '">'
+            + '</div>'
+            + '<div style="display:flex;flex-direction:column;gap:6px">'
+            + '<label class="klabel" for="dic-signup-confirm">Confirm password</label>'
+            + '<input id="dic-signup-confirm" type="password" autocomplete="new-password" placeholder="Repeat the password" style="' + inpStyle + '">'
+            + '</div>'
+            + errorHtml
+            + '<button data-login-action="signup" style="' + btnStyle + (S.loginBusy ? ';opacity:0.6' : '') + '"' + (S.loginBusy ? ' disabled' : '') + '>' + (S.loginBusy ? 'Creating account…' : 'Create account') + '</button>'
             + '<button data-login-action="back" style="' + ghostBtnStyle + '">Back to sign in</button>';
         } else if (S.loginStep === 'reset') {
           body = ''
@@ -6980,9 +7000,12 @@
             + '<label class="klabel" for="dic-login-password">Password</label>'
             + '<input id="dic-login-password" type="password" autocomplete="current-password" placeholder="••••••••" style="' + inpStyle + '">'
             + '</div>'
+            + noticeHtml
             + errorHtml
             + '<button data-login-action="login" style="' + btnStyle + (S.loginBusy ? ';opacity:0.6' : '') + '"' + (S.loginBusy ? ' disabled' : '') + '>' + (S.loginBusy ? 'Signing in…' : 'Sign in') + '</button>'
             + '<button data-login-action="forgot" style="' + linkBtnStyle + '">Forgot password?</button>'
+            + '<div style="height:1px;background:var(--border-subtle)"></div>'
+            + '<button data-login-action="to-signup" style="' + ghostBtnStyle + '">Create account</button>'
             + offlineHtml;
         }
 
@@ -6995,7 +7018,7 @@
           + body
           + '</div></div>';
 
-        var focusId = S.loginStep === 'reset' ? 'dic-login-code' : 'dic-login-email';
+        var focusId = S.loginStep === 'reset' ? 'dic-login-code' : (S.loginStep === 'signup' ? 'dic-login-email' : 'dic-login-email');
         var focusEl = document.getElementById(focusId);
         if (focusEl) focusEl.focus();
       }
@@ -7019,6 +7042,39 @@
               mountDashboard(result.data.email);
             } else {
               S.loginError = (result.data && result.data.error) || 'Incorrect email or password.';
+              renderLoginScreen();
+            }
+          })
+          .catch(function () {
+            S.loginBusy = false;
+            S.loginError = 'Could not reach the sign-in service. Please try again.';
+            renderLoginScreen();
+          });
+      }
+
+      function submitSignup() {
+        var g = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+        var email = g('dic-login-email').trim();
+        var password = g('dic-signup-password'), confirm = g('dic-signup-confirm');
+        S.loginEmail = email;
+        if (!email || !password || !confirm) { S.loginError = 'Complete all fields.'; renderLoginScreen(); return; }
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { S.loginError = 'Enter a valid email address.'; renderLoginScreen(); return; }
+        if (password.length < 8) { S.loginError = 'Choose a password at least 8 characters long.'; renderLoginScreen(); return; }
+        if (password !== confirm) { S.loginError = 'The two passwords do not match.'; renderLoginScreen(); return; }
+        S.loginBusy = true; S.loginError = null; renderLoginScreen();
+        fetch('/api/signup', {
+          method: 'POST', credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, password: password })
+        }).then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+          .then(function (result) {
+            S.loginBusy = false;
+            if (result.ok && result.data && result.data.ok) {
+              if (result.data.email && result.data.authenticated !== false) { mountDashboard(result.data.email); return; }
+              S.loginStep = 'login'; S.loginError = null; S.loginNotice = result.data.message || 'Account created. Sign in to continue.';
+              renderLoginScreen();
+            } else {
+              S.loginError = (result.data && result.data.error) || 'Could not create the account. Please try again.';
               renderLoginScreen();
             }
           })
@@ -7107,7 +7163,9 @@
         if (!e.target || !e.target.id) return;
         if (e.target.id === 'dic-login-email' || e.target.id === 'dic-login-password') {
           e.preventDefault();
-          if (S.loginStep === 'forgot') submitForgotPassword(false); else submitLogin();
+          if (S.loginStep === 'forgot') submitForgotPassword(false); else if (S.loginStep === 'signup') submitSignup(); else submitLogin();
+        } else if (e.target.id === 'dic-signup-password' || e.target.id === 'dic-signup-confirm') {
+          e.preventDefault(); submitSignup();
         } else if (e.target.id === 'dic-login-code' || e.target.id === 'dic-login-newpassword') {
           e.preventDefault();
           submitResetPassword();
