@@ -337,6 +337,8 @@
       outline: none
     }
 
+    html, body { overflow-x: clip }
+
     .infobubble {
       position: absolute;
       top: 24px;
@@ -5276,6 +5278,8 @@
         });
         M.health = health;
         M.cohortSize = (D.portfolio && D.portfolio.startups || []).length;
+        var _ak = D.impact && D.impact.kpis && D.impact.kpis.activeStartups;
+        M.activeStartups = (_ak && typeof _ak.value === 'number') ? _ak.value : null;
 
         /* ---- needs attention (data-driven from coaching highlights + stats) ---- */
         var bottom = (co.highlights && co.highlights.bottom) || [];
@@ -5656,7 +5660,7 @@
           + '<div style="display:flex;gap:12px;flex-wrap:wrap">'
           + execBox(EXEC_COLORS[0], M.wsDelivered, WS_COHORT_SCOPE, 'Workshops · ' + fmtSat(M.wsAvgSat) + ' rating', 'Delivery', 'Workshops', EXEC_TEXT_DARK[0])
           + execBox(EXEC_COLORS[1], M.talksDelivered, TALKS_COHORT_SCOPE, 'DIC Talks · ' + fmtSat(M.talkAvgSat) + ' rating', 'Delivery', 'DIC Talks', EXEC_TEXT_DARK[1])
-          + execBox(EXEC_COLORS[2], M.cohortSize, null, 'Startups in Cohort', null, null, EXEC_TEXT_DARK[2])
+          + execBox(EXEC_COLORS[2], (M.activeStartups != null ? M.activeStartups : M.cohortSize - (M.health.withdrawn || 0)), null, 'Active Startups in Cohort', null, null, EXEC_TEXT_DARK[2])
           + '</div>'
           + '<p class="cap">' + esc(S.cohort) + ' is ' + (wsAhead ? 'On Track with Strong Attendance' : 'In Progress') + '; DIC Talks Feedback is Positive, and ' + M.attention.length + ' Startups Require Attention.</p>'
           + '<div class="dic-donut-row" style="display:flex;align-items:flex-start;gap:24px;padding-top:16px;border-top:1px solid var(--border-subtle)">' + donut
@@ -5705,7 +5709,7 @@
               var pct = (prev && s.value != null) ? Math.round((s.value / prev) * 100) : null;
               var taper = 6 + i * 3;
               return '<div style="display:flex;align-items:center;gap:16px">'
-                + '<div style="flex:none;width:280px;display:flex;justify-content:center">'
+                + '<div style="flex:0 1 280px;min-width:110px;display:flex;justify-content:center">'
                 + '<div style="width:' + w + '%;min-width:64px;clip-path:polygon(8% 0,92% 0,' + (94 - taper) + '% 100%,' + (6 + taper) + '% 100%);background:' + colors[i] + ';padding:14px 10px;display:flex;align-items:center;justify-content:center;min-height:52px">'
                 + '<span style="font:800 21px/24px var(--font-sans);color:#fff;letter-spacing:-0.01em">' + nfmt(s.value) + '</span>'
                 + '</div></div>'
@@ -6659,7 +6663,7 @@
           + '<span style="font:700 22px/28px var(--font-sans);letter-spacing:-0.01em">Workshops <span style="color:var(--green-600)">' + (attDelta != null && attDelta >= 0 ? 'ahead of target' : 'in progress') + '</span>, attendance ' + M.wsAttRate + '%.</span>'
           + '</div>'
           + '<div class="dic-donut-row" style="display:flex;align-items:center;gap:20px">' + donut + '<div style="display:flex;flex-direction:column;gap:8px">'
-          + '<span style="font:600 14px/18px var(--font-sans)">' + (M.cohortSize - (M.health.withdrawn || 0)) + ' startups in incubation</span>'
+          + '<span style="font:600 14px/18px var(--font-sans)">' + (M.activeStartups != null ? M.activeStartups : M.cohortSize - (M.health.withdrawn || 0)) + ' startups in incubation</span>'
           + dmLegend(HEALTH_COLORS[0], 'on track', M.health.on)
           + dmLegend(HEALTH_COLORS[1], 'at risk', M.health.risk)
           + dmLegend(HEALTH_COLORS[2], 'off track', M.health.off)
@@ -6675,7 +6679,7 @@
           + dmTile('Coaching', 'clock', 'var(--qatar-blue)', hnum(M.coachHours), 'h', 'Coaching hours')
           + '</div>'
           + '<div class="card" style="grid-column:1 / -1;flex-direction:row;flex-wrap:wrap;align-items:center;gap:20px 24px;padding:18px 24px">'
-          + '<div style="display:flex;align-items:center;gap:10px">' + dmIcon('building', 'var(--qatar-skyline)') + '<div style="display:flex;flex-direction:column"><span style="font:800 26px/28px var(--font-sans);letter-spacing:-0.02em">' + M.cohortSize + '</span><span class="klabel">Startups incubated</span></div></div>'
+          + '<div style="display:flex;align-items:center;gap:10px">' + dmIcon('building', 'var(--qatar-skyline)') + '<div style="display:flex;flex-direction:column"><span style="font:800 26px/28px var(--font-sans);letter-spacing:-0.02em">' + (M.activeStartups != null ? M.activeStartups : M.cohortSize - (M.health.withdrawn || 0)) + '</span><span class="klabel">Active startups</span></div></div>'
           + '<span style="width:1px;height:34px;background:var(--border-default);flex:none"></span>'
           + '<div style="display:flex;align-items:center;gap:10px">' + dmIcon('handshake', 'var(--green-600)') + '<div style="display:flex;flex-direction:column"><span style="font:800 26px/28px var(--font-sans);letter-spacing:-0.02em;color:var(--green-600)">' + ((M.menDelivery && M.menDelivery.delivered) ? M.menDelivery.delivered : M.menLogged) + ' <span style="font:600 14px/1 var(--font-sans);color:var(--text-tertiary)">h</span></span><span class="klabel">Mentorship hours</span></div></div>'
           + '<span style="width:1px;height:34px;background:var(--border-default);flex:none"></span>'
@@ -7173,6 +7177,6 @@
 
     })();
   </script>
-</body>
+<script>(function(){function flip(e){var t=e.target&&e.target.closest&&e.target.closest(".infotip");if(!t)return;var b=t.querySelector(".infobubble");if(!b||window.innerWidth<=1080)return;b.style.left="0";b.style.right="auto";var r=t.getBoundingClientRect();var w=b.offsetWidth||300;if(r.left+w>window.innerWidth-12){b.style.left="auto";b.style.right="0"}}document.addEventListener("mouseover",flip);document.addEventListener("focusin",flip)})();</script></body>
 
 </html>
