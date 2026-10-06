@@ -6521,12 +6521,13 @@
         var kActivated = kBase.filter(function (r) { var st = (r.status || '').toLowerCase(); return st === 'activation communicated' || st === 'activated'; }).length;
         var kDays = kBase.map(function (r) { return r.days; }).filter(function (d) { return typeof d === 'number' && d > 0; });
         var kAvg = kDays.length ? round1(mean(kDays)) : null;
-        var kpis = '<div class="grid-collapse" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">'
+        var kpis = '<div class="grid-collapse" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">'
           + kpiTile(kRequested, '', 'Perks requested')
           + kpiTile(kActivated, '', 'Perks activated', 'var(--green-600)')
+          + kpiTile(kRequested ? (Math.round(kActivated / kRequested * 1000) / 10) + '%' : '—', '', '% Perk requests activated', 'var(--green-600)')
           + kpiTile(kAvg == null ? '—' : kAvg, kAvg == null ? '' : 'days', 'Average activation duration')
           + '</div>'
-          + '<p class="cap">Perks Activated Counts Requests with the Status Activation Communicated or Activated. Average Activation Duration is Taken from the Days to Activate Column, Leaving Out Zero or Negative Values (' + kDays.length + ' Requests).</p>';
+          + '<p class="cap">% Perk Requests Activated is Perks Activated Divided by Perks Requested. Perks Activated Counts Requests with the Status Activation Communicated or Activated. Average Activation Duration is Taken from the Days to Activate Column, Leaving Out Zero or Negative Values (' + kDays.length + ' Requests).</p>';
 
         /* ---- insight ---- */
         var insight = '';
@@ -6574,7 +6575,7 @@
           + '<p class="cap">Counts reflect ' + provLabel + ' Requests Under the Current Filters (All Statuses, Not Just Completed). Use this to See which Perks and Services Generate the Most Demand.</p></div>';
 
         var turnaroundInfoTip = '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">Since we started processing perk requests, how has the number of days to activate them improved over time?</span></span></span>';
+          + '<span class="infobubble" style="width:280px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">How many perks have been requested, how many of them have been activated, and how many days activation takes on average.</span></span></span>';
 
         /* ---- total in-kind value delivered by provider — Awaiting data.
            Innovate's own v1 metrics table flags this its single priority
@@ -6617,7 +6618,7 @@
 
         return ''
           + '<div style="display:flex;flex-direction:column;gap:20px">'
-          + '<div class="card" style="gap:14px"><div style="display:flex;align-items:center"><span class="eyebrow">Perk Activation Turnaround Improvement</span>' + turnaroundInfoTip + '</div>'
+          + '<div class="card" style="gap:14px"><div style="display:flex;align-items:center"><span class="eyebrow">Perk Requests and Activation</span>' + turnaroundInfoTip + '</div>'
           + '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' + scopeChip('cohort') + '</div>'
           + kpis
           + '</div>'
