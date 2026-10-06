@@ -4289,7 +4289,39 @@
         "days": -144,
         "completed": true
       }
-    ]
+    ],
+    "inKind": {
+      "source": "file",
+      "fxRate": 3.64,
+      "basis": "Minimum published value per perk, activated requests only",
+      "byProvider": {
+        "Vendor": {
+          "requests": 66,
+          "activated": 65,
+          "valued": 60,
+          "minUsd": 1301954,
+          "maxUsd": 1752550
+        },
+        "MCIT": {
+          "requests": 60,
+          "activated": 54,
+          "valued": 0,
+          "minUsd": 0,
+          "maxUsd": 0
+        },
+        "Unspecified": {
+          "requests": 1,
+          "activated": 0,
+          "valued": 0,
+          "minUsd": 0,
+          "maxUsd": 0
+        }
+      },
+      "minUsd": 1301954,
+      "maxUsd": 1752550,
+      "valued": 60,
+      "activatedWithoutValue": 5
+    }
   },
   "dataQuality": {
     "sourceFile": "Dashboard Data Mentorship Hours 2025.xlsx",
@@ -6581,16 +6613,33 @@
            Innovate's own v1 metrics table flags this its single priority
            metric; the current records have no monetary value field at all. */
         var valueInfoTip = '<span class="infotip" tabindex="0"><span class="infoicon">i</span>'
-          + '<span class="infobubble" style="width:300px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">This Tab Currently Answers "how Fast are we Processing Requests." It Cannot Answer "how much is this Programme Actually Worth to its Startups" — which, for a Client Funding the Perks Programme, may be the more Fundamental Question. Innovate\'s Operator Assigns a Value to Every Granted Perk; the Current Records Carry Status and Dates, but no Value Field. This is Innovate\'s own Top-Priority Metric in its v1 Spec.</span></span></span>';
-        var valueByProvider = providers.length ? providers.map(function (pv) {
-          return '<div style="display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:16px;background:var(--neutral-25);border:1px solid var(--border-subtle);border-radius:12px">'
+          + '<span class="infobubble" style="width:300px"><span style="font:400 12.5px/18px var(--font-sans);color:var(--text-secondary)">How Much the Activated Vendor Perks are Worth to the Startups, Using the Minimum Value of Each Perk from the Perk Service Tracker. It is a Conservative Figure: Where a Perk Has a Published Range, the Low End is Used.</span></span></span>';
+        var ik = pk.inKind || null, ikFx = (ik && ik.fxRate) || (M.since ? M.since.fxRate : 3.64);
+        var tileBase = 'display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:16px;border-radius:12px;';
+        var valueTotalTile = (ik && ik.minUsd > 0)
+          ? '<div title="' + esc('Minimum value: USD ' + nfmt(ik.minUsd) + ' x ' + ikFx + ' = QAR ' + nfmt(Math.round(ik.minUsd * ikFx))) + '" style="' + tileBase + 'background:var(--qatar-skyline)">'
+            + '<span style="font:800 26px/30px var(--font-sans);letter-spacing:-0.02em;color:#FFFFFF">QAR ' + compactNum(ik.minUsd * ikFx) + '</span>'
+            + '<span style="font:500 14px/18px var(--font-sans);color:#C3CBD1">$' + compactNum(ik.minUsd) + '</span>'
+            + '<span class="klabel" style="color:rgba(255,255,255,0.88)">Total in-kind value (minimum)</span></div>'
+          : '';
+        var valueByProvider = providers.length ? providers.slice().sort(function (x, y) { var vx = (ik && ik.byProvider && ik.byProvider[x] ? ik.byProvider[x].minUsd : 0), vy = (ik && ik.byProvider && ik.byProvider[y] ? ik.byProvider[y].minUsd : 0); return vy - vx; }).map(function (pv) {
+          var iv = ik && ik.byProvider ? ik.byProvider[pv] : null;
+          if (iv && iv.minUsd > 0) {
+            return '<div title="' + esc('Minimum value: USD ' + nfmt(iv.minUsd) + ' x ' + ikFx + ' = QAR ' + nfmt(Math.round(iv.minUsd * ikFx))) + '" style="' + tileBase + 'background:var(--neutral-25);border:1px solid var(--border-subtle)">'
+              + '<span style="font:800 26px/30px var(--font-sans);letter-spacing:-0.02em;color:var(--text-primary)">QAR ' + compactNum(iv.minUsd * ikFx) + '</span>'
+              + '<span style="font:500 14px/18px var(--font-sans);color:var(--text-tertiary)">$' + compactNum(iv.minUsd) + '</span>'
+              + '<span class="klabel">' + esc(pv) + '</span>'
+              + '<span class="cap">' + iv.valued + ' of ' + iv.activated + ' activated perks carry a value</span></div>';
+          }
+          return '<div style="' + tileBase + 'background:var(--neutral-25);border:1px solid var(--border-subtle)">'
             + '<span style="font:800 26px/30px var(--font-sans);letter-spacing:-0.02em;color:var(--text-tertiary)">—</span>'
             + '<span class="klabel">' + esc(pv) + '</span>'
-            + '<span class="chip awaiting" style="align-self:flex-start">Awaiting data</span></div>';
+            + '<span class="cap">No monetary value is recorded for these services</span></div>';
         }).join('') : '';
-        var valueCard = '<div class="card" style="gap:12px"><div style="display:flex;align-items:baseline;gap:8px"><h2 class="ctitle">TOTAL IN-KIND VALUE DELIVERED</h2>' + valueInfoTip + '<span class="chip" style="background:var(--status-info-bg);color:var(--status-info)">Innovate Priority Metric</span></div>'
-          + (valueByProvider ? ('<div class="grid-collapse" style="display:grid;grid-template-columns:repeat(' + providers.length + ',1fr);gap:14px">' + valueByProvider + '</div>') : '')
-          + '<p class="cap">Broken down by Provider so it\'s Clear whether Delivered Value is Concentrated in one Vendor or Spread across Many. Populates once Perk Records Carry a Value Field.</p></div>';
+        var valueTiles = valueTotalTile + valueByProvider, valueCols = (valueTotalTile ? 1 : 0) + providers.length;
+        var valueCard = '<div class="card" style="gap:12px"><div style="display:flex;align-items:baseline;gap:8px"><h2 class="ctitle">TOTAL IN-KIND VALUE DELIVERED</h2>' + valueInfoTip + '</div>'
+          + (valueTiles ? ('<div class="grid-collapse" style="display:grid;grid-template-columns:repeat(' + valueCols + ',1fr);gap:14px">' + valueTiles + '</div>') : '')
+          + '<p class="cap">' + (ik ? ('Each Vendor Perk is Valued at its Minimum Published Value (Perk Service Tracker), Counting Activated Requests Only (Status Activation Communicated or Activated). USD Converted to QAR at ' + ikFx + ' per USD. Perks with a Published Range (Azure, Digital Ocean, HeyReach, LeadIQ) are Counted at the Low End; at the High End the Total would be QAR ' + compactNum(ik.maxUsd * ikFx) + ' ($' + compactNum(ik.maxUsd) + '). ' + (ik.activatedWithoutValue ? (ik.activatedWithoutValue + ' Activated Vendor Perks Have no Value Recorded and are Not Counted. ') : '') + 'MCIT Services Carry no Monetary Value. Not Affected by the Filters.') : 'No value data is available.') + '</p></div>';
 
         /* ---- perk approval-chain breakdown — real data, approximated.
            The current status field (New / On Hold / Activation communicated /
